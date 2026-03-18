@@ -12,7 +12,7 @@
 
 | Risk | Mitigation|
 |------|-----------|
-|Token Rate Limits | Utlizing Claude API credits for optimized token usage to credit cost tradeoff|
+|Token Rate Limits | Utlizing Claude API credits for optimized token usage to credit cost tradeoff; testing with limited subset of data|
 |Token Size Limits| Ingestion Agent parses contract into clause-level segments|
 |Agent Innacuracies| Orchestrator Agent will evaluate the consistency of the outputs of the agents |
 |Specialist Agent Errors| Error retry loop for each agent|

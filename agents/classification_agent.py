@@ -5,50 +5,15 @@ import re
 from langchain_anthropic import ChatAnthropic
 from langchain_core.prompts import ChatPromptTemplate
 from state import ContractState
+from pathlib import Path
 
-CUAD_CLAUSE_TYPES = [
-    "Document Name",
-    "Parties",
-    "Agreement Date",
-    "Effective Date",
-    "Expiration Date",
-    "Renewal Term",
-    "Notice Period To Terminate Renewal",
-    "Governing Law",
-    "Most Favored Nation",
-    "Non-Compete",
-    "Exclusivity",
-    "No-Solicit Of Customers",
-    "No-Solicit Of Employees",
-    "Non-Disparagement",
-    "Termination For Convenience",
-    "Rofr/Rofo/Rofn",
-    "Change Of Control",
-    "Anti-Assignment",
-    "Revenue/Profit Sharing",
-    "Price Restrictions",
-    "Minimum Commitment",
-    "Volume Restriction",
-    "Ip Ownership Assignment",
-    "Joint Ip Ownership",
-    "License Grant",
-    "Non-Transferable License",
-    "Affiliate License-Licensor",
-    "Affiliate License-Licensee",
-    "Unlimited/All-You-Can-Eat-License",
-    "Irrevocable Or Perpetual License",
-    "Source Code Escrow",
-    "Post-Termination Services",
-    "Audit Rights",
-    "Uncapped Liability",
-    "Cap On Liability",
-    "Liquidated Damages",
-    "Warranty Duration",
-    "Insurance",
-    "Covenant Not To Sue",
-    "Third Party Beneficiary",
-    "Indemnification",
-]
+from dotenv import load_dotenv
+load_dotenv()
+
+with open("data/cuad/taxonomy.json") as f:
+    TAXONOMY = json.load(f)
+
+CUAD_CLAUSE_TYPES = [entry["name"] for entry in TAXONOMY]
 
 SYSTEM_PROMPT = """You are a legal clause classifier for commercial contracts.
 
@@ -78,7 +43,11 @@ chain = prompt | llm
 def classify_clause(clause_text: str) -> dict:
     """Classify a single clause and return structured result."""
     response = chain.invoke({
-        "clause_types": "\n".join(f"- {ct}" for ct in CUAD_CLAUSE_TYPES),
+        # "clause_types": "\n".join(f"- {ct}" for ct in CUAD_CLAUSE_TYPES),
+        "clause_types": "\n".join(
+            f"- {entry['name']}: {entry['question'].split('Details: ')[-1]}"
+            for entry in TAXONOMY
+        ),
         "clause_text": clause_text,
     })
 
@@ -102,7 +71,7 @@ def classification_node(state: ContractState) -> dict:
     """LangGraph node: classify all clauses from the ingestion agent."""
     classified = []
 
-    for clause in state["clauses"]:
+    for clause in state["clauses"][:3]: # changed from state["clauses"] for now to conserve API credits
         result = classify_clause(clause["text"])
         classified.append({
             **clause,

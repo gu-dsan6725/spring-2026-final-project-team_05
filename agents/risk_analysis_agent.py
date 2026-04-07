@@ -1,17 +1,30 @@
-"""Risk Analysis Agent: scores clause risk and identifies risk factors."""
+"""Risk Analysis Agent: scores clause risk using CUAD taxonomy as a structured rubric."""
 
 import json
+import os
 import re
 from langchain_anthropic import ChatAnthropic
 from langchain_core.prompts import ChatPromptTemplate
 from state import ContractState
 
+TAXONOMY_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "cuad", "taxonomy.json")
+
+CUAD_RUBRIC = {}
+if os.path.exists(TAXONOMY_PATH):
+    with open(TAXONOMY_PATH) as f:
+        for entry in json.load(f):
+            CUAD_RUBRIC[entry["name"]] = entry["question"]
+
 SYSTEM_PROMPT = """You are a legal risk analyst for commercial contracts.
 
-Given a contract clause and its classified type, evaluate the risk level by considering:
+Given a contract clause, its classified type, and a legal review rubric for that clause type,
+evaluate the risk level by considering:
 1. Ambiguous or vague language that could lead to unfavorable interpretations
 2. Missing protective provisions that are standard for this clause type
 3. Deviation from standard phrasing or industry norms
+4. The specific legal review criteria provided in the rubric
+
+{rubric_section}
 
 Respond with ONLY valid JSON in this exact format:
 {{
@@ -31,8 +44,15 @@ chain = prompt | llm
 
 
 def analyze_risk(clause_text: str, clause_type: str) -> dict:
-    """Analyze risk for a single clause and return structured result."""
+    """Analyze risk for a single clause using CUAD rubric."""
+    rubric_question = CUAD_RUBRIC.get(clause_type, "")
+    if rubric_question:
+        rubric_section = f"Legal review rubric for this clause type:\n{rubric_question}"
+    else:
+        rubric_section = "No specific rubric available for this clause type. Use general legal risk analysis."
+
     response = chain.invoke({
+        "rubric_section": rubric_section,
         "clause_type": clause_type,
         "clause_text": clause_text,
     })

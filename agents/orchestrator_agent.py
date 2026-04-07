@@ -13,16 +13,9 @@ def report_node(state: ContractState) -> dict:
     """Compile all agent outputs into a structured risk report."""
     clauses = state.get("benchmark_results", state.get("risk_scores", []))
 
-    high_risk = [c for c in clauses if c.get("risk_score", 0) >= 0.7]
-    medium_risk = [c for c in clauses if 0.4 <= c.get("risk_score", 0) < 0.7]
-    low_risk = [c for c in clauses if c.get("risk_score", 0) < 0.4]
-
     report = {
         "summary": {
             "total_clauses": len(clauses),
-            "high_risk": len(high_risk),
-            "medium_risk": len(medium_risk),
-            "low_risk": len(low_risk),
         },
         "clauses": [
             {

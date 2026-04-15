@@ -1,0 +1,63 @@
+{
+  "summary": {
+    "total_clauses": 3
+  },
+  "clauses": [
+    {
+      "id": 0,
+      "section": "Exhibit 10.5",
+      "clause_type": "Document Name, Parties, Agreement Date, Effective Date",
+      "confidence": 0.95,
+      "risk_score": 0.35,
+      "risk_factors": [
+        "Redacted confidential information marked with '[*]' creates uncertainty about material terms",
+        "Vague definition of 'Airspan Products' relies on external Schedule I that may be subject to change",
+        "Territory definition deferred to Schedule II without clear incorporation mechanism",
+        "Undefined appointment scope - 'Distributor' role lacks specificity in preamble",
+        "Multiple product component definitions (Equipment, Software, System) introduced informally in WHEREAS clauses rather than formal definitions section",
+        "No execution date specified, only effective date - potential ambiguity if signed after March 31, 2000",
+        "Distributor entity identified only by name and location with minimal corporate identification details"
+      ],
+      "benchmark_similarity": 0.95,
+      "benchmark_source": "CUAD: ParatekPharmaceuticalsInc_20170505_10-KA_EX-10.29_, WHITESMOKE,INC_11_08_2011-EX-10.26-PROMOTION AND D",
+      "text": "Exhibit 10.5\n\nNote: Portions of this exhibit indicated by\"[*]\" are subject to a confidential treatment request, and have been omitted from this exhibit. Complete, unredacted copies of this exhibit hav"
+    },
+    {
+      "id": 1,
+      "section": "1.   APPOINTMENT.      -----------",
+      "clause_type": "Other",
+      "confidence": 0.95,
+      "risk_score": 0.85,
+      "risk_factors": [
+        "Clause is incomplete - contains only header with dashes and no substantive content",
+        "Missing essential appointment terms (parties, roles, responsibilities, duration)",
+        "No definition of appointment scope or authority granted",
+        "Absence of termination conditions or notice requirements",
+        "No compensation, benefits, or consideration terms specified",
+        "Unclear operational framework for the appointment relationship"
+      ],
+      "benchmark_similarity": 0.85,
+      "benchmark_source": "CUAD: MetLife, Inc. - Remarketing Agreement.txt, ORBSATCORP_08_17_2007-EX-7.3-STRATEGIC ALLIANCE AG",
+      "text": "1.   APPOINTMENT.      -----------"
+    },
+    {
+      "id": 2,
+      "section": "1.1  Subject to the provisions of this Agreement, Airspan hereby appoints Distributor as an independent, exclusive distributor to assist Airspan in marketing the Airspan Products to customers in the Territory, and Distributor hereby accepts such appointment as of the Effective Date of this Agreement. Distributor's appointment as a distributor of the Airspan Products grants to Distributor only a license to resell the",
+      "clause_type": "Exclusivity",
+      "confidence": 0.95,
+      "risk_score": 0.72,
+      "risk_factors": [
+        "Exclusive dealing commitment without clear scope limitations - distributor must market Airspan Products exclusively in the Territory",
+        "Vague definition of 'Territory' - geographic scope is not specified in provided text, creating ambiguity about exclusivity boundaries",
+        "Incomplete clause text - sentence cuts off mid-paragraph ('grants to Distributor only a license to resell the'), preventing full risk assessment",
+        "No visible termination provisions or duration limits mentioned - unclear when exclusivity ends or how it can be modified",
+        "Unclear post-termination restrictions - no explicit statement whether exclusivity obligations survive contract termination",
+        "Potential conflict between 'exclusive distributor' appointment and 'independent' status - could create disputes over control and obligations",
+        "Missing clarity on 'requirements' commitment - no specification of minimum sales obligations, performance metrics, or exclusivity enforcement mechanisms"
+      ],
+      "benchmark_similarity": 0.95,
+      "benchmark_source": "CUAD: AIRSPANNETWORKSINC_04_11_2000-EX-10.5-Distributor , AIRSPANNETWORKSINC_04_11_2000-EX-10.5-Distributor ",
+      "text": "1.1  Subject to the provisions of this Agreement, Airspan hereby appoints Distributor as an independent, exclusive distributor to assist Airspan in marketing the Airspan Products to customers in the T"
+    }
+  ]
+}

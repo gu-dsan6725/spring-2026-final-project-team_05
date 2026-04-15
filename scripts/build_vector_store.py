@@ -4,8 +4,12 @@ Build ChromaDB vector store from CUAD contract files.
 Run once before using the benchmark agent (python3 scripts/build_vector_store.py)
 
 Vector store is saved to data/cuad_vector_store/ and loaded automatically by benchmark agent at runtime.
+
+RECENT UPDATE: Hybrid Retrieval:
+Also saves chunks.json alongside the ChromaDB store so the benchmark agent can build BM25 keyword index at load time
 """
 
+import json
 import os
 import chromadb
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
@@ -43,6 +47,7 @@ def main():
     batch_docs, batch_ids, batch_metas = [], [], []
     total_chunks = 0
     chunk_counter = 0
+    all_chunks = [] # Accumulate all chunks for BM25 index
 
     for filename in tqdm(contract_files, desc="Indexing contracts"):
         filepath = os.path.join(CONTRACTS_DIR, filename)
@@ -58,6 +63,7 @@ def main():
             batch_docs.append(chunk)
             batch_ids.append(f"chunk_{chunk_counter}")
             batch_metas.append({"source": filename})
+            all_chunks.append({"text": chunk, "source": filename})
             chunk_counter += 1
             total_chunks += 1
 
@@ -67,6 +73,12 @@ def main():
 
     if batch_docs:
         collection.add(documents=batch_docs, ids=batch_ids, metadatas=batch_metas)
+
+    # Save chunks to JSON for BM25 keyword index
+    chunks_path = os.path.join(STORE_DIR, "chunks.json")
+    with open(chunks_path, "w", encoding="utf-8") as f:
+        json.dump(all_chunks, f)
+    print(f"Saved {len(all_chunks)} chunks to chunks.json for BM25 index")
 
     print("\nDone!")
     print(f"Indexed {total_chunks} chunks from {len(contract_files)} contracts")

@@ -1,0 +1,377 @@
+{
+  "total_cases": 8,
+  "errors": 0,
+  "overall_scores": {
+    "BenchmarkSimilarityValidity": {
+      "average": 1.0,
+      "min": 1.0,
+      "max": 1.0,
+      "count": 8
+    },
+    "ClassificationValidity": {
+      "average": 1.0,
+      "min": 1.0,
+      "max": 1.0,
+      "count": 8
+    },
+    "ClauseStructureValidity": {
+      "average": 1.0,
+      "min": 1.0,
+      "max": 1.0,
+      "count": 8
+    },
+    "ExpectedClauseType": {
+      "average": 0.8333,
+      "min": 0.0,
+      "max": 1.0,
+      "count": 8
+    },
+    "Latency": {
+      "average": 0.8125,
+      "min": 0.75,
+      "max": 1.0,
+      "count": 8
+    },
+    "NoError": {
+      "average": 1.0,
+      "min": 1.0,
+      "max": 1.0,
+      "count": 8
+    },
+    "OutputStructureValidity": {
+      "average": 1.0,
+      "min": 1.0,
+      "max": 1.0,
+      "count": 8
+    },
+    "RiskFactorsPresence": {
+      "average": 1.0,
+      "min": 1.0,
+      "max": 1.0,
+      "count": 7
+    },
+    "RiskScoreValidity": {
+      "average": 1.0,
+      "min": 1.0,
+      "max": 1.0,
+      "count": 8
+    }
+  },
+  "per_category": {
+    "consulting_agreement": {
+      "BenchmarkSimilarityValidity": {
+        "average": 1.0,
+        "count": 1
+      },
+      "ClassificationValidity": {
+        "average": 1.0,
+        "count": 1
+      },
+      "ClauseStructureValidity": {
+        "average": 1.0,
+        "count": 1
+      },
+      "ExpectedClauseType": {
+        "average": 0.6667,
+        "count": 1
+      },
+      "Latency": {
+        "average": 0.75,
+        "count": 1
+      },
+      "NoError": {
+        "average": 1.0,
+        "count": 1
+      },
+      "OutputStructureValidity": {
+        "average": 1.0,
+        "count": 1
+      },
+      "RiskFactorsPresence": {
+        "average": 1.0,
+        "count": 1
+      },
+      "RiskScoreValidity": {
+        "average": 1.0,
+        "count": 1
+      }
+    },
+    "distributor_agreement": {
+      "BenchmarkSimilarityValidity": {
+        "average": 1.0,
+        "count": 3
+      },
+      "ClassificationValidity": {
+        "average": 1.0,
+        "count": 3
+      },
+      "ClauseStructureValidity": {
+        "average": 1.0,
+        "count": 3
+      },
+      "ExpectedClauseType": {
+        "average": 1.0,
+        "count": 3
+      },
+      "Latency": {
+        "average": 0.75,
+        "count": 3
+      },
+      "NoError": {
+        "average": 1.0,
+        "count": 3
+      },
+      "OutputStructureValidity": {
+        "average": 1.0,
+        "count": 3
+      },
+      "RiskFactorsPresence": {
+        "average": 1.0,
+        "count": 3
+      },
+      "RiskScoreValidity": {
+        "average": 1.0,
+        "count": 3
+      }
+    },
+    "employment_contract": {
+      "BenchmarkSimilarityValidity": {
+        "average": 1.0,
+        "count": 1
+      },
+      "ClassificationValidity": {
+        "average": 1.0,
+        "count": 1
+      },
+      "ClauseStructureValidity": {
+        "average": 1.0,
+        "count": 1
+      },
+      "ExpectedClauseType": {
+        "average": 1.0,
+        "count": 1
+      },
+      "Latency": {
+        "average": 0.75,
+        "count": 1
+      },
+      "NoError": {
+        "average": 1.0,
+        "count": 1
+      },
+      "OutputStructureValidity": {
+        "average": 1.0,
+        "count": 1
+      },
+      "RiskFactorsPresence": {
+        "average": 1.0,
+        "count": 1
+      },
+      "RiskScoreValidity": {
+        "average": 1.0,
+        "count": 1
+      }
+    },
+    "services_agreement": {
+      "BenchmarkSimilarityValidity": {
+        "average": 1.0,
+        "count": 2
+      },
+      "ClassificationValidity": {
+        "average": 1.0,
+        "count": 2
+      },
+      "ClauseStructureValidity": {
+        "average": 1.0,
+        "count": 2
+      },
+      "ExpectedClauseType": {
+        "average": 1.0,
+        "count": 2
+      },
+      "Latency": {
+        "average": 0.875,
+        "count": 2
+      },
+      "NoError": {
+        "average": 1.0,
+        "count": 2
+      },
+      "OutputStructureValidity": {
+        "average": 1.0,
+        "count": 2
+      },
+      "RiskFactorsPresence": {
+        "average": 1.0,
+        "count": 2
+      },
+      "RiskScoreValidity": {
+        "average": 1.0,
+        "count": 2
+      }
+    },
+    "strategic_alliance": {
+      "BenchmarkSimilarityValidity": {
+        "average": 1.0,
+        "count": 1
+      },
+      "ClassificationValidity": {
+        "average": 1.0,
+        "count": 1
+      },
+      "ClauseStructureValidity": {
+        "average": 1.0,
+        "count": 1
+      },
+      "ExpectedClauseType": {
+        "average": 0.0,
+        "count": 1
+      },
+      "Latency": {
+        "average": 1.0,
+        "count": 1
+      },
+      "NoError": {
+        "average": 1.0,
+        "count": 1
+      },
+      "OutputStructureValidity": {
+        "average": 1.0,
+        "count": 1
+      },
+      "RiskScoreValidity": {
+        "average": 1.0,
+        "count": 1
+      }
+    }
+  },
+  "per_case": [
+    {
+      "input_preview": "SECTION 1. EXCLUSIVITY\nCompany hereby grants Distributor the exclusive right to market, sell, and distribute the Product",
+      "category": "distributor_agreement",
+      "scores": {
+        "ClauseStructureValidity": 1.0,
+        "ClassificationValidity": 1.0,
+        "ExpectedClauseType": 1.0,
+        "RiskScoreValidity": 1.0,
+        "RiskFactorsPresence": 1.0,
+        "BenchmarkSimilarityValidity": 1.0,
+        "OutputStructureValidity": 1.0,
+        "Latency": 0.75,
+        "NoError": 1.0
+      },
+      "error": null
+    },
+    {
+      "input_preview": "SECTION 1.1 NON-COMPETE OBLIGATIONS\nEmployee agrees that for a period of five (5) years following termination of employm",
+      "category": "employment_contract",
+      "scores": {
+        "ClauseStructureValidity": 1.0,
+        "ClassificationValidity": 1.0,
+        "ExpectedClauseType": 1.0,
+        "RiskScoreValidity": 1.0,
+        "RiskFactorsPresence": 1.0,
+        "BenchmarkSimilarityValidity": 1.0,
+        "OutputStructureValidity": 1.0,
+        "Latency": 0.75,
+        "NoError": 1.0
+      },
+      "error": null
+    },
+    {
+      "input_preview": "ARTICLE I - IP OWNERSHIP ASSIGNMENT\nConsultant hereby irrevocably assigns to Client all right, title, and interest in an",
+      "category": "consulting_agreement",
+      "scores": {
+        "ClauseStructureValidity": 1.0,
+        "ClassificationValidity": 1.0,
+        "ExpectedClauseType": 0.6667,
+        "RiskScoreValidity": 1.0,
+        "RiskFactorsPresence": 1.0,
+        "BenchmarkSimilarityValidity": 1.0,
+        "OutputStructureValidity": 1.0,
+        "Latency": 0.75,
+        "NoError": 1.0
+      },
+      "error": null
+    },
+    {
+      "input_preview": "SECTION 3. MINIMUM COMMITMENT\nDistributor agrees to purchase a minimum of 10,000 units of the Products per calendar quar",
+      "category": "distributor_agreement",
+      "scores": {
+        "ClauseStructureValidity": 1.0,
+        "ClassificationValidity": 1.0,
+        "ExpectedClauseType": 1.0,
+        "RiskScoreValidity": 1.0,
+        "RiskFactorsPresence": 1.0,
+        "BenchmarkSimilarityValidity": 1.0,
+        "OutputStructureValidity": 1.0,
+        "Latency": 0.75,
+        "NoError": 1.0
+      },
+      "error": null
+    },
+    {
+      "input_preview": "SECTION 7. CAP ON LIABILITY\nExcept for breaches of confidentiality obligations or indemnification obligations, in no eve",
+      "category": "services_agreement",
+      "scores": {
+        "ClauseStructureValidity": 1.0,
+        "ClassificationValidity": 1.0,
+        "ExpectedClauseType": 1.0,
+        "RiskScoreValidity": 1.0,
+        "RiskFactorsPresence": 1.0,
+        "BenchmarkSimilarityValidity": 1.0,
+        "OutputStructureValidity": 1.0,
+        "Latency": 0.75,
+        "NoError": 1.0
+      },
+      "error": null
+    },
+    {
+      "input_preview": "SECTION 2.1 ANTI-ASSIGNMENT\nNeither party may assign, transfer, delegate, or sublicense any of its rights or obligations",
+      "category": "services_agreement",
+      "scores": {
+        "ClauseStructureValidity": 1.0,
+        "ClassificationValidity": 1.0,
+        "ExpectedClauseType": 1.0,
+        "RiskScoreValidity": 1.0,
+        "RiskFactorsPresence": 1.0,
+        "BenchmarkSimilarityValidity": 1.0,
+        "OutputStructureValidity": 1.0,
+        "Latency": 1.0,
+        "NoError": 1.0
+      },
+      "error": null
+    },
+    {
+      "input_preview": "ARTICLE IV - RENEWAL TERM\nUnless terminated as set forth herein, this Agreement shall automatically renew for additional",
+      "category": "distributor_agreement",
+      "scores": {
+        "ClauseStructureValidity": 1.0,
+        "ClassificationValidity": 1.0,
+        "ExpectedClauseType": 1.0,
+        "RiskScoreValidity": 1.0,
+        "RiskFactorsPresence": 1.0,
+        "BenchmarkSimilarityValidity": 1.0,
+        "OutputStructureValidity": 1.0,
+        "Latency": 0.75,
+        "NoError": 1.0
+      },
+      "error": null
+    },
+    {
+      "input_preview": "This Strategic Alliance Agreement (the \"Agreement\") is entered into as of March 15, 2024 (the \"Effective Date\") by and b",
+      "category": "strategic_alliance",
+      "scores": {
+        "ClauseStructureValidity": 1.0,
+        "ClassificationValidity": 1.0,
+        "ExpectedClauseType": 0.0,
+        "RiskScoreValidity": 1.0,
+        "BenchmarkSimilarityValidity": 1.0,
+        "OutputStructureValidity": 1.0,
+        "Latency": 1.0,
+        "NoError": 1.0
+      },
+      "error": null
+    }
+  ]
+}

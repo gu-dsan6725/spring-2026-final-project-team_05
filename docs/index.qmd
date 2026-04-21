@@ -6,8 +6,6 @@ title: "Contract Clause Analyzer"
 
 **Team:** Alison Manna, Akshay Arun, Satomi Ito
 
-Multi-agent system that automatically analyzes commercial contracts using AI agents.
-
 ---
 
 ## Deliverables

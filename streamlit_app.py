@@ -186,6 +186,28 @@ if st.session_state.results:
             value=low_risk_count
         )
 
+    # Knowledge Graph section
+    st.header("Knowledge Graph")
+    graph_image_path = summary.get("graph_image_path", "")
+    entities = report.get("entities", [])
+    relationships = report.get("relationships", [])
+
+    if graph_image_path and os.path.exists(graph_image_path):
+        st.image(graph_image_path, caption="Contract Entity Relationships")
+
+    if entities:
+        st.subheader("Extracted Entities")
+        entity_cols = st.columns(3)
+        for i, entity in enumerate(entities):
+            with entity_cols[i % 3]:
+                entity_type = entity.get("type", "unknown").upper()
+                st.info(f"**{entity.get('name', 'Unknown')}**\n{entity_type}")
+
+    if relationships:
+        st.subheader("Key Relationships")
+        for rel in relationships:
+            st.markdown(f"• {rel.get('source', '?')} → _{rel.get('relation', '?')}_  → {rel.get('target', '?')}")
+
     # Clauses section
     st.header("Clause Analysis")
 

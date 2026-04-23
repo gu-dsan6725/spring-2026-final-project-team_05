@@ -179,3 +179,7 @@ data/
 
 # Sample Labs
 spring-2026-lab10-akshay17arun/
+
+.bt/
+.claude/
+.agents/

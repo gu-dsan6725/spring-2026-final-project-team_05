@@ -46,7 +46,7 @@ load_dotenv()
 _EVAL_DIR = Path(__file__).resolve().parent
 DEFAULT_DATASET_PATH = str(_EVAL_DIR / "eval_dataset.json")
 DEFAULT_OUTPUT_PATH = str(_EVAL_DIR / "eval_metrics.json")
-BRAINTRUST_PROJECT_NAME = "contract-pipeline-evals"
+BRAINTRUST_PROJECT_NAME = os.environ.get("BRAINTRUST_PROJECT", "contract-pipeline-evals")
 
 # Side-channel cache populated by the wrapped scorer so _export_eval_metrics
 # can persist expected/found/matched type breakdowns to eval_metrics.json.

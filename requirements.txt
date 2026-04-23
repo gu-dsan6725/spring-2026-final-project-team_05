@@ -47,5 +47,8 @@ langchain-anthropic
 langchain-core
 langgraph
 datasets
-dotenv
+python-dotenv
 streamlit
+braintrust
+autoevals
+openai

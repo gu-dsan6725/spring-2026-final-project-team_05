@@ -3,13 +3,13 @@
 FAILURE REPORT  (threshold < 1.0)
 ========================================================================
 Total cases  : 50
-Failed cases : 44  (88.0%)
+Failed cases : 47  (94.0%)
 
 ------------------------------------------------------------------------
 FAILURES PER SCORER
 ------------------------------------------------------------------------
-  Latency                                  41 case(s)
-  ExpectedClauseType                       10 case(s)
+  Latency                                  44 case(s)
+  ExpectedClauseType                       9 case(s)
 
 ------------------------------------------------------------------------
 FAILED CASES DETAIL
@@ -31,7 +31,6 @@ Employee agrees that for a period of five (5...
        preview  : ARTICLE I - IP OWNERSHIP ASSIGNMENT
 Consultant hereby irrevocably assigns to Cli...
        failures :
-         ExpectedClauseType                     score = 0.6667
          Latency                                score = 0.7500
 
   [3] category : distributor_agreement
@@ -56,6 +55,9 @@ Unless terminated as set forth herein, this Agreement ...
        preview  : This Strategic Alliance Agreement (the "Agreement") is entered into as of March ...
        failures :
          ExpectedClauseType                     score = 0.0000
+           expected    : Agreement Date, Effective Date, Parties
+           found       : Document Name, Parties, Agreement Date, Effective Date, Other
+           missing     : Agreement Date, Effective Date, Parties
 
   [8] category : nda_services_agreement
        preview  : SECTION 5.1 NON-DISPARAGEMENT
@@ -79,7 +81,6 @@ Subject to the terms herein, Vendor gran...
        preview  : ARTICLE 2.1 JOINT IP OWNERSHIP
 Any intellectual property jointly conceived, crea...
        failures :
-         ExpectedClauseType                     score = 0.6667
          Latency                                score = 0.7500
 
   [12] category : reseller_agreement
@@ -88,24 +89,51 @@ During the Term of this Agreement and for a p...
        failures :
          Latency                                score = 0.7500
 
+  [13] category : supply_agreement
+       preview  : CLAUSE 1. EXPIRATION DATE
+This Agreement shall expire on December 31, 2026 (the ...
+       failures :
+         Latency                                score = 0.7500
+
   [14] category : franchise_agreement
        preview  : RECITALS AND PARTIES
 This Franchise Agreement (the "Agreement") is entered into ...
        failures :
          ExpectedClauseType                     score = 0.3333
+           expected    : Agreement Date, Effective Date, Parties
+           found       : Document Name, Parties, Agreement Date, Effective Date, Other
+           missing     : Agreement Date, Parties
+         Latency                                score = 0.7500
+
+  [15] category : supply_agreement
+       preview  : ARTICLE 1. EFFECTIVE DATE
+This Supply Agreement is effective as of February 15, ...
+       failures :
+         Latency                                score = 0.7500
+
+  [17] category : employment_contract
+       preview  : SECTION 4. TERMINATION FOR CONVENIENCE
+Either party may terminate this employmen...
+       failures :
+         Latency                                score = 0.7500
 
   [18] category : technology_licensing
        preview  : SECTION A. LICENSE GRANT
 Licensor grants Licensee a non-exclusive, non-transfera...
        failures :
          ExpectedClauseType                     score = 0.3333
+           expected    : Governing Law, License Grant, Warranty Duration
+           found       : Governing Law
+           missing     : License Grant, Warranty Duration
 
   [20] category : services_agreement
        preview  : PREAMBLE
 This Master Services Agreement (the "Agreement") is made as of April 5,...
        failures :
          ExpectedClauseType                     score = 0.3333
-         Latency                                score = 0.7500
+           expected    : Agreement Date, Effective Date, Parties
+           found       : Document Name, Parties, Agreement Date, Effective Date, Other
+           missing     : Agreement Date, Parties
 
   [21] category : franchise_agreement
        preview  : SECTION 1. EXCLUSIVITY
@@ -202,6 +230,9 @@ Client's parent company and subsidiaries ar...
 Inventions and discoveries arising from activities...
        failures :
          ExpectedClauseType                     score = 0.6667
+           expected    : Audit Rights, Joint Ip Ownership, Revenue/Profit Sharing
+           found       : Audit Rights, Joint IP Ownership, Revenue/Profit Sharing
+           missing     : Joint Ip Ownership
          Latency                                score = 0.7500
 
   [37] category : employment_contract
@@ -221,19 +252,29 @@ Franchisor represents that the royalty rates and...
 In consideration of the technology transfer fees in...
        failures :
          ExpectedClauseType                     score = 0.6667
+           expected    : Irrevocable Or Perpetual License, Joint Ip Ownership, Source Code Escrow
+           found       : Irrevocable Or Perpetual License, Joint IP Ownership, Source Code Escrow
+           missing     : Joint Ip Ownership
          Latency                                score = 0.7500
 
   [40] category : services_agreement
        preview  : SECTION 15. CHANGE OF CONTROL
 "Change of Control" includes any merger, consolida...
        failures :
+         ExpectedClauseType                     score = 0.6667
+           expected    : Anti-Assignment, Change Of Control, Rofr/Rofo/Rofn
+           found       : Anti-Assignment, Change Of Control, ROFR/ROFO/ROFN
+           missing     : Rofr/Rofo/Rofn
          Latency                                score = 0.7500
 
   [41] category : research_collaboration
        preview  : SECTION 10. IP OWNERSHIP ASSIGNMENT
 All intellectual property created solely by ...
        failures :
-         ExpectedClauseType                     score = 0.6667
+         ExpectedClauseType                     score = 0.3333
+           expected    : Ip Ownership Assignment, Joint Ip Ownership, License Grant
+           found       : IP Ownership Assignment, Joint IP Ownership, License Grant
+           missing     : Ip Ownership Assignment, Joint Ip Ownership
          Latency                                score = 0.7500
 
   [42] category : enterprise_software
@@ -283,6 +324,9 @@ The end-users who access Vendor's Platform...
 Consultant irrevocably assigns to Client all ...
        failures :
          ExpectedClauseType                     score = 0.6667
+           expected    : Change Of Control, Ip Ownership Assignment, Non-Compete
+           found       : Change Of Control, IP Ownership Assignment, Non-Compete
+           missing     : Ip Ownership Assignment
          Latency                                score = 0.7500
 
 ========================================================================

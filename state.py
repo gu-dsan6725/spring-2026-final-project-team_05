@@ -20,3 +20,7 @@ class ContractState(TypedDict, total=False):
     risk_scores: List[Clause]
     benchmark_results: List[Clause]
     report: str
+    # New, knowledge Graph:
+    entities: List[dict]
+    relationships: List[dict]
+    graph_image_path: str  # path to saved knowledge graph PNG

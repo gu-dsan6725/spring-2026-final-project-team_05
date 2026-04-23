@@ -7,6 +7,7 @@ from agents.ingestion_agent import ingestion_node
 from agents.classification_agent import classification_node
 from agents.risk_analysis_agent import risk_analysis_node
 from agents.benchmark_agent import benchmark_node
+from agents.knowledge_graph_agent import knowledge_graph_node  # NEW (Upgrade 2)
 
 
 def report_node(state: ContractState) -> dict:
@@ -16,7 +17,14 @@ def report_node(state: ContractState) -> dict:
     report = {
         "summary": {
             "total_clauses": len(clauses),
+            # new: knowledge graph counts & image path
+            "entities_extracted": len(state.get("entities", [])),
+            "relationships_extracted": len(state.get("relationships", [])),
+            "graph_image_path": state.get("graph_image_path", ""),
         },
+        # new - entities and relationships in report
+        "entities": state.get("entities", []),
+        "relationships": state.get("relationships", []),
         "clauses": [
             {
                 "id": c.get("id"),
@@ -41,13 +49,15 @@ def build_pipeline() -> StateGraph:
     graph = StateGraph(ContractState)
 
     graph.add_node("ingestion", ingestion_node)
+    graph.add_node("knowledge_graph", knowledge_graph_node) # new
     graph.add_node("classification", classification_node)
     graph.add_node("risk_analysis", risk_analysis_node)
     graph.add_node("benchmark", benchmark_node)
     graph.add_node("report", report_node)
 
     graph.set_entry_point("ingestion")
-    graph.add_edge("ingestion", "classification")
+    graph.add_edge("ingestion", "knowledge_graph") # new
+    graph.add_edge("knowledge_graph", "classification") # new
     graph.add_edge("classification", "risk_analysis")
     graph.add_edge("risk_analysis", "benchmark")
     graph.add_edge("benchmark", "report")

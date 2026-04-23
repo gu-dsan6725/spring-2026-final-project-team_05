@@ -52,3 +52,9 @@ streamlit
 braintrust
 autoevals
 openai
+dotenv
+chromadb
+sentence-transformers
+rank-bm25 
+networkx 
+matplotlib 

@@ -1,17 +1,17 @@
 """
-Demo: run the full contract analysis pipeline end-to-end.
+Demo- run full contract analysis pipeline end-to-end
 
 Usage:
-    python demo.py                         # uses a default sample contract
-    python demo.py path/to/contract.txt    # use a specific contract
+    python demo.py # uses default sample contract
+    python demo.py path/to/contract.txt  # use a specific contract
 
-Prerequisites:
+Prereqs:
     1. Set ANTHROPIC_API_KEY in .env or environment
-    2. Build the CUAD vector store once: python scripts/build_vector_store.py
+    2. Build CUAD vector store once: python scripts/build_vector_store.py
 
 Output:
-    - Prints a summary report to the terminal
-    - Saves the full JSON report to pipeline_output.json
+    - Prints summary report to the terminal
+    - Saves full JSON report to pipeline_output.json
 """
 
 import json

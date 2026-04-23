@@ -12,6 +12,7 @@ import json
 import os
 import re
 
+from observability import get_logger 
 import matplotlib
 matplotlib.use("Agg") # non-interactive backend (no display)
 import matplotlib.pyplot as plt
@@ -136,6 +137,23 @@ def knowledge_graph_node(state: ContractState) -> dict:
     """LangGraph node- extract entities/relationships & build knowledge graph"""
     entities, relationships = extract_entities_and_relationships(state["raw_text"])
     graph_path = build_and_save_graph(entities, relationships)
+
+    # observability: log knowledge graph results as Braintrust span
+    logger = get_logger()
+    if logger:
+        with logger.start_span("knowledge_graph_node") as span:
+            span.log(
+                input={"contract_excerpt_chars": min(TEXT_EXCERPT_CHARS, len(state["raw_text"]))},
+                output={
+                    "entities_count": len(entities),
+                    "relationships_count": len(relationships),
+                    "graph_saved": bool(graph_path),
+                },
+                metadata={
+                    "entity_types": list({e.get("type") for e in entities}),
+                    "graph_image_path": graph_path,
+                },
+            )
 
     return {
         "entities": entities,

@@ -3,7 +3,7 @@
 RECENT UPDATE: Hybrid Retrieval (BM25 + ChromaDB):
 Now uses 2 retrieval methods & merges  results before passing to the LLM:
   - ChromaDB (semantic/vector search): finds conceptually similar clauses
-  - BM25 (keyword search): finds clauses with exact or near-exact matching terms
+  - BM25 (keyword search): finds clauses w/ exact or near-exact matching terms
 """
 
 import json
@@ -11,6 +11,7 @@ import os
 import re
 
 import chromadb
+from observability import get_logger
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
 from langchain_anthropic import ChatAnthropic
 from langchain_core.prompts import ChatPromptTemplate
@@ -57,7 +58,6 @@ _collection = None
 _bm25_index = None
 _bm25_corpus = None  # list of {"text": ..., "source": ...}
 
-
 def _get_collection():
     global _collection
     if _collection is None:
@@ -70,7 +70,6 @@ def _get_collection():
             print("[benchmark_agent] Run 'python scripts/build_vector_store.py' to build it.")
             print("[benchmark_agent] Falling back to LLM-only benchmarking.")
     return _collection
-
 
 # Load BM25 index from chunks.json saved by build_vector_store.py
 def _get_bm25():
@@ -97,7 +96,6 @@ def _retrieve_semantic(clause_text: str, clause_type: str) -> list[dict]:
         {"text": doc, "source": meta["source"]}
         for doc, meta in zip(results["documents"][0], results["metadatas"][0])
     ]
-
 
 # Keyword retrieval w/ BM25
 def _retrieve_bm25(clause_text: str, clause_type: str) -> list[dict]:
@@ -142,7 +140,6 @@ def _retrieve_cuad_examples(clause_text: str, clause_type: str) -> tuple[str, li
     examples_text = "\n\n".join(parts)
     return examples_text, sources
 
-
 def benchmark_clause(clause_text: str, clause_type: str) -> dict:
     """Benchmark a single clause against CUAD examples."""
     examples_text, sources = _retrieve_cuad_examples(clause_text, clause_type)
@@ -175,7 +172,6 @@ def benchmark_clause(clause_text: str, clause_type: str) -> dict:
     result["_sources"] = sources
     return result
 
-
 def benchmark_node(state: ContractState) -> dict:
     """LangGraph node: benchmark all risk-scored clauses against CUAD contracts."""
     benchmarked = []
@@ -195,5 +191,25 @@ def benchmark_node(state: ContractState) -> dict:
             "benchmark_similarity": result.get("benchmark_similarity", 0.0),
             "benchmark_source": benchmark_source,
         })
+
+    # observability: log benchmark summary as Braintrust span
+    logger = get_logger()
+    if logger:
+        with logger.start_span("benchmark_node") as span:
+            sim_scores = [c["benchmark_similarity"] for c in benchmarked]
+            span.log(
+                input={"clauses_received": len(source)},
+                output={
+                    "clauses_benchmarked": len(benchmarked),
+                    "avg_benchmark_similarity": (
+                        sum(sim_scores) / len(sim_scores) if sim_scores else 0.0
+                    ),
+                    "retrieval_method": (
+                        "hybrid (semantic + BM25)"
+                        if _bm25_index is not None
+                        else "semantic only"
+                    ),
+                },
+            )
 
     return {"benchmark_results": benchmarked}

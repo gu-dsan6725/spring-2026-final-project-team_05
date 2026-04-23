@@ -6,6 +6,7 @@ import re
 from langchain_anthropic import ChatAnthropic
 from langchain_core.prompts import ChatPromptTemplate
 from state import ContractState
+from observability import get_logger 
 
 TAXONOMY_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "cuad", "taxonomy.json")
 
@@ -84,5 +85,22 @@ def risk_analysis_node(state: ContractState) -> dict:
             "risk_score": result.get("risk_score", 0.0),
             "risk_factors": result.get("risk_factors", []),
         })
+
+    # observability: log risk analysis summary as Braintrust span
+    logger = get_logger()
+    if logger:
+        with logger.start_span("risk_analysis_node") as span:
+            risk_scores = [c["risk_score"] for c in risk_scored]
+            span.log(
+                input={"clauses_received": len(state["classified_clauses"])},
+                output={
+                    "clauses_scored": len(risk_scored),
+                    "high_risk_count": sum(1 for s in risk_scores if s >= 0.7),
+                    "avg_risk_score": sum(risk_scores) / len(risk_scores) if risk_scores else 0.0,
+                },
+                metadata={
+                    "risk_scores": risk_scores,
+                },
+            )
 
     return {"risk_scores": risk_scored}

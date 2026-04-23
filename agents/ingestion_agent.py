@@ -2,6 +2,7 @@
 
 import re
 from state import ContractState, Clause
+from observability import get_logger
 
 # Matches section headers (e.g. "1." "2.1" "SECTION 3" "ARTICLE IV")
 SECTION_PATTERN = re.compile(
@@ -39,4 +40,15 @@ def split_into_clauses(text: str) -> list[Clause]:
 def ingestion_node(state: ContractState) -> dict:
     """LangGraph node: parse raw_text into clause segments."""
     clauses = split_into_clauses(state["raw_text"])
+
+    # observability: log ingestion results as Braintrust span
+    logger = get_logger()
+    if logger:
+        with logger.start_span("ingestion_node") as span:
+            span.log(
+                input={"contract_length_chars": len(state["raw_text"])},
+                output={"clauses_extracted": len(clauses)},
+                metadata={"sections": [c.get("section", "") for c in clauses[:10]]},
+            )
+
     return {"clauses": clauses}

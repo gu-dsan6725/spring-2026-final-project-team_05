@@ -7,7 +7,8 @@ from agents.ingestion_agent import ingestion_node
 from agents.classification_agent import classification_node
 from agents.risk_analysis_agent import risk_analysis_node
 from agents.benchmark_agent import benchmark_node
-from agents.knowledge_graph_agent import knowledge_graph_node  # NEW (Upgrade 2)
+from agents.knowledge_graph_agent import knowledge_graph_node
+from observability import get_logger
 
 
 def report_node(state: ContractState) -> dict:
@@ -17,12 +18,11 @@ def report_node(state: ContractState) -> dict:
     report = {
         "summary": {
             "total_clauses": len(clauses),
-            # new: knowledge graph counts & image path
             "entities_extracted": len(state.get("entities", [])),
             "relationships_extracted": len(state.get("relationships", [])),
             "graph_image_path": state.get("graph_image_path", ""),
         },
-        # new - entities and relationships in report
+        # entities and relationships in report
         "entities": state.get("entities", []),
         "relationships": state.get("relationships", []),
         "clauses": [
@@ -49,15 +49,15 @@ def build_pipeline() -> StateGraph:
     graph = StateGraph(ContractState)
 
     graph.add_node("ingestion", ingestion_node)
-    graph.add_node("knowledge_graph", knowledge_graph_node) # new
+    graph.add_node("knowledge_graph", knowledge_graph_node)
     graph.add_node("classification", classification_node)
     graph.add_node("risk_analysis", risk_analysis_node)
     graph.add_node("benchmark", benchmark_node)
     graph.add_node("report", report_node)
 
     graph.set_entry_point("ingestion")
-    graph.add_edge("ingestion", "knowledge_graph") # new
-    graph.add_edge("knowledge_graph", "classification") # new
+    graph.add_edge("ingestion", "knowledge_graph")
+    graph.add_edge("knowledge_graph", "classification")
     graph.add_edge("classification", "risk_analysis")
     graph.add_edge("risk_analysis", "benchmark")
     graph.add_edge("benchmark", "report")
@@ -68,5 +68,27 @@ def build_pipeline() -> StateGraph:
 
 def run_pipeline(contract_text: str) -> dict:
     pipeline = build_pipeline()
-    result = pipeline.invoke({"raw_text": contract_text})
+
+    # updated for observability -- wrap whole pipeline run in top-level baintrust span
+    logger = get_logger()
+    if logger:
+        with logger.start_span("contract_pipeline") as span:
+            span.log(
+                input={"contract_length_chars": len(contract_text)},
+                metadata={"pipeline_nodes": [
+                    "ingestion", "knowledge_graph", "classification",
+                    "risk_analysis", "benchmark", "report"
+                ]},
+            )
+            result = pipeline.invoke({"raw_text": contract_text})
+            report_data = json.loads(result.get("report", "{}"))
+            span.log(
+                output={
+                    "total_clauses": report_data.get("summary", {}).get("total_clauses", 0),
+                    "entities_extracted": report_data.get("summary", {}).get("entities_extracted", 0),
+                }
+            )
+    else:
+        result = pipeline.invoke({"raw_text": contract_text})
+
     return result

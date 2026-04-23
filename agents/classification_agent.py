@@ -1,4 +1,4 @@
-"""Classification Agent: tags contract clauses using the CUAD taxonomy."""
+"""Classification Agent: tags contract clauses using the CUAD taxonomy"""
 
 import json
 import re
@@ -9,6 +9,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 load_dotenv()
+from observability import get_logger
 
 with open("data/cuad/taxonomy.json") as f:
     TAXONOMY = json.load(f)
@@ -78,5 +79,23 @@ def classification_node(state: ContractState) -> dict:
             "clause_type": result["clause_type"],
             "confidence": result.get("confidence", 0.0),
         })
+
+    # observability: log classification summary as Braintrust span
+    logger = get_logger()
+    if logger:
+        with logger.start_span("classification_node") as span:
+            span.log(
+                input={"clauses_received": len(state["clauses"])},
+                output={
+                    "clauses_classified": len(classified),
+                    "clause_types": [c["clause_type"] for c in classified],
+                },
+                metadata={
+                    "avg_confidence": (
+                        sum(c["confidence"] for c in classified) / len(classified)
+                        if classified else 0.0
+                    ),
+                },
+            )
 
     return {"classified_clauses": classified}

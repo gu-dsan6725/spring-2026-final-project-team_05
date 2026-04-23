@@ -28,6 +28,7 @@ _PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(_PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(_PROJECT_ROOT))
 
+import braintrust
 from autoevals.llm import Factuality
 from braintrust import Eval
 from dotenv import load_dotenv
@@ -53,6 +54,12 @@ BRAINTRUST_PROJECT_NAME = os.environ.get("BRAINTRUST_PROJECT", "contract-pipelin
 _clause_type_metadata: dict[str, dict] = {}
 EVAL_JUDGE_MODEL = "claude-sonnet-4-6"
 ANTHROPIC_OPENAI_BASE_URL = "https://api.anthropic.com/v1/"
+
+braintrust.auto_instrument()
+braintrust.init_logger(
+    api_key=os.environ.get("BRAINTRUST_API_KEY"),
+    project=BRAINTRUST_PROJECT_NAME,
+)
 
 
 def _create_judge_client() -> OpenAI:

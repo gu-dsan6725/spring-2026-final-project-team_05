@@ -32,6 +32,49 @@ PALETTE = {
     "bg":   "#FAFAFA",
 }
 
+_SCORER_LABELS = {
+    "BenchmarkSimilarityValidity": "Benchmark Similarity Validity",
+    "ClassificationValidity":      "Classification Validity",
+    "ClauseStructureValidity":     "Clause Structure Validity",
+    "ExpectedClauseType":          "Expected Clause Type",
+    "Factuality":                  "Factuality",
+    "Latency":                     "Latency",
+    "NoError":                     "No Error",
+    "OutputStructureValidity":     "Output Structure Validity",
+    "RiskFactorsPresence":         "Risk Factors Presence",
+    "RiskScoreValidity":           "Risk Score Validity",
+}
+
+_CATEGORY_LABELS = {
+    "agency_agreement":          "Agency Agreement",
+    "commercial_lease":          "Commercial Lease",
+    "consulting_agreement":      "Consulting Agreement",
+    "data_processing_agreement": "Data Processing Agreement",
+    "distribution_agreement":    "Distribution Agreement",
+    "distributor_agreement":     "Distributor Agreement",
+    "employment_contract":       "Employment Contract",
+    "enterprise_software":       "Enterprise Software",
+    "franchise_agreement":       "Franchise Agreement",
+    "joint_venture":             "Joint Venture",
+    "master_service_agreement":  "Master Service Agreement",
+    "nda":                       "NDA",
+    "nda_services_agreement":    "NDA Services Agreement",
+    "partnership_agreement":     "Partnership Agreement",
+    "research_collaboration":    "Research Collaboration",
+    "reseller_agreement":        "Reseller Agreement",
+    "saas_agreement":            "SaaS Agreement",
+    "services_agreement":        "Services Agreement",
+    "software_license":          "Software License",
+    "strategic_alliance":        "Strategic Alliance",
+    "supply_agreement":          "Supply Agreement",
+    "technology_licensing":      "Technology Licensing",
+    "technology_transfer":       "Technology Transfer",
+}
+
+
+def _fmt(name: str, mapping: dict) -> str:
+    return mapping.get(name, name.replace("_", " ").title())
+
 
 def load_metrics(path: str) -> dict:
     p = Path(path)
@@ -70,7 +113,8 @@ def plot_overall_scores(metrics: dict) -> None:
     fig.patch.set_facecolor(PALETTE["bg"])
     ax.set_facecolor(PALETTE["bg"])
 
-    bars = ax.barh(scorers, averages, color=colors, edgecolor="white", height=0.6)
+    scorer_labels = [_fmt(s, _SCORER_LABELS) for s in scorers]
+    bars = ax.barh(scorer_labels, averages, color=colors, edgecolor="white", height=0.6)
 
     for bar, avg, n in zip(bars, averages, counts):
         ax.text(
@@ -127,9 +171,9 @@ def plot_category_heatmap(metrics: dict) -> None:
     im = ax.imshow(matrix, cmap=cmap, vmin=0.0, vmax=1.0, aspect="auto")
 
     ax.set_xticks(range(len(scorers)))
-    ax.set_xticklabels(scorers, rotation=35, ha="right", fontsize=9)
+    ax.set_xticklabels([_fmt(s, _SCORER_LABELS) for s in scorers], rotation=35, ha="right", fontsize=9)
     ax.set_yticks(range(len(categories)))
-    ax.set_yticklabels(categories, fontsize=9)
+    ax.set_yticklabels([_fmt(c, _CATEGORY_LABELS) for c in categories], fontsize=9)
 
     for r in range(len(categories)):
         for c in range(len(scorers)):
@@ -219,13 +263,14 @@ def plot_failures_by_category(metrics: dict, threshold: float) -> None:
 
     categories = sorted(failure_counts, key=lambda c: -failure_counts[c])
     counts = [failure_counts[c] for c in categories]
+    category_labels = [_fmt(c, _CATEGORY_LABELS) for c in categories]
 
     fig, ax = plt.subplots(figsize=(9, max(4, len(categories) * 0.5)))
     fig.patch.set_facecolor(PALETTE["bg"])
     ax.set_facecolor(PALETTE["bg"])
 
-    ax.barh(categories, counts, color=PALETTE["fail"], edgecolor="white", height=0.6)
-    for i, (cat, count) in enumerate(zip(categories, counts)):
+    ax.barh(category_labels, counts, color=PALETTE["fail"], edgecolor="white", height=0.6)
+    for i, (cat, count) in enumerate(zip(category_labels, counts)):
         ax.text(count + 0.05, i, str(count), va="center", fontsize=10)
 
     ax.set_xlabel("Number of Failed Cases", fontsize=11)

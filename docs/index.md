@@ -1,4 +1,4 @@
-# 📋 Contract Clause Analyzer
+# Contract Clause Analyzer
 
 ## AI-Powered Commercial Contract Analysis
 

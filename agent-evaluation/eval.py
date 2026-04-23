@@ -8,19 +8,25 @@ benchmark → report) using:
 - Custom heuristic scorers for each agent stage's output validity
 
 Usage:
-    python eval.py
-    python eval.py --dataset eval_dataset.json --output eval_metrics.json
-    python eval.py --no-send-logs
-    python eval.py --debug
+    python agent-evaluation/eval.py
+    python agent-evaluation/eval.py --dataset eval_dataset.json --output eval_metrics.json
+    python agent-evaluation/eval.py --no-send-logs
+    python agent-evaluation/eval.py --debug
 """
 
 import argparse
 import json
 import logging
 import os
+import sys
 import time
 from pathlib import Path
 from typing import Any, Optional
+
+# Allow imports from the project root (agents/, etc.)
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(_PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(_PROJECT_ROOT))
 
 from autoevals.llm import Factuality
 from braintrust import Eval
@@ -34,11 +40,17 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+os.chdir(_PROJECT_ROOT)
 load_dotenv()
 
-DEFAULT_DATASET_PATH = "eval_dataset.json"
-DEFAULT_OUTPUT_PATH = "eval_metrics.json"
+_EVAL_DIR = Path(__file__).resolve().parent
+DEFAULT_DATASET_PATH = str(_EVAL_DIR / "eval_dataset.json")
+DEFAULT_OUTPUT_PATH = str(_EVAL_DIR / "eval_metrics.json")
 BRAINTRUST_PROJECT_NAME = "contract-pipeline-evals"
+
+# Side-channel cache populated by the wrapped scorer so _export_eval_metrics
+# can persist expected/found/matched type breakdowns to eval_metrics.json.
+_clause_type_metadata: dict[str, dict] = {}
 EVAL_JUDGE_MODEL = "claude-sonnet-4-6"
 ANTHROPIC_OPENAI_BASE_URL = "https://api.anthropic.com/v1/"
 
@@ -209,6 +221,18 @@ def expected_clause_type_scorer(
             "matched_types": sorted(matched),
         },
     }
+
+
+def _expected_clause_type_scorer_with_cache(
+    input: str,
+    output: str,
+    expected: Optional[str] = None,
+    metadata: Optional[dict] = None,
+) -> Optional[dict]:
+    result = expected_clause_type_scorer(input, output, expected, metadata)
+    if result and result.get("metadata"):
+        _clause_type_metadata[input] = result["metadata"]
+    return result
 
 
 def risk_score_validity_scorer(
@@ -583,10 +607,14 @@ def _export_eval_metrics(
         input_text = str(r.input) if r.input else ""
         category = category_lookup.get(input_text, "unknown")
 
+        clause_type_meta = _clause_type_metadata.get(input_text)
         case_entry: dict = {
             "input_preview": input_text[:120],
             "category": category,
             "scores": {},
+            "scorer_metadata": {
+                "ExpectedClauseType": clause_type_meta,
+            } if clause_type_meta else {},
             "error": None,
         }
 
@@ -653,10 +681,10 @@ def _parse_args() -> argparse.Namespace:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Example usage:
-    python eval.py
-    python eval.py --dataset eval_dataset.json --output eval_metrics.json
-    python eval.py --no-send-logs
-    python eval.py --debug
+    python agent-evaluation/eval.py
+    python agent-evaluation/eval.py --dataset eval_dataset.json --output eval_metrics.json
+    python agent-evaluation/eval.py --no-send-logs
+    python agent-evaluation/eval.py --debug
 """,
     )
     parser.add_argument(
@@ -703,7 +731,7 @@ def main() -> None:
         Factuality(model=EVAL_JUDGE_MODEL, client=judge_client),
         clause_structure_validity_scorer,       # ingestion agent
         classification_validity_scorer,         # classification agent
-        expected_clause_type_scorer,            # classification agent
+        _expected_clause_type_scorer_with_cache,  # classification agent
         risk_score_validity_scorer,             # risk analysis agent
         risk_factors_presence_scorer,           # risk analysis agent
         benchmark_similarity_validity_scorer,   # benchmark agent

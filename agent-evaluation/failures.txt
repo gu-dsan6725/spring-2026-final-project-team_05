@@ -1,0 +1,288 @@
+
+========================================================================
+FAILURE REPORT  (threshold < 1.0)
+========================================================================
+Total cases  : 50
+Failed cases : 44  (88.0%)
+
+------------------------------------------------------------------------
+FAILURES PER SCORER
+------------------------------------------------------------------------
+  Latency                                  41 case(s)
+  ExpectedClauseType                       10 case(s)
+
+------------------------------------------------------------------------
+FAILED CASES DETAIL
+------------------------------------------------------------------------
+
+  [0] category : distributor_agreement
+       preview  : SECTION 1. EXCLUSIVITY
+Company hereby grants Distributor the exclusive right to ...
+       failures :
+         Latency                                score = 0.7500
+
+  [1] category : employment_contract
+       preview  : SECTION 1.1 NON-COMPETE OBLIGATIONS
+Employee agrees that for a period of five (5...
+       failures :
+         Latency                                score = 0.7500
+
+  [2] category : consulting_agreement
+       preview  : ARTICLE I - IP OWNERSHIP ASSIGNMENT
+Consultant hereby irrevocably assigns to Cli...
+       failures :
+         ExpectedClauseType                     score = 0.6667
+         Latency                                score = 0.7500
+
+  [3] category : distributor_agreement
+       preview  : SECTION 3. MINIMUM COMMITMENT
+Distributor agrees to purchase a minimum of 10,000...
+       failures :
+         Latency                                score = 0.7500
+
+  [4] category : services_agreement
+       preview  : SECTION 7. CAP ON LIABILITY
+Except for breaches of confidentiality obligations o...
+       failures :
+         Latency                                score = 0.7500
+
+  [6] category : distributor_agreement
+       preview  : ARTICLE IV - RENEWAL TERM
+Unless terminated as set forth herein, this Agreement ...
+       failures :
+         Latency                                score = 0.7500
+
+  [7] category : strategic_alliance
+       preview  : This Strategic Alliance Agreement (the "Agreement") is entered into as of March ...
+       failures :
+         ExpectedClauseType                     score = 0.0000
+
+  [8] category : nda_services_agreement
+       preview  : SECTION 5.1 NON-DISPARAGEMENT
+Each party agrees that, during the Term of this Ag...
+       failures :
+         Latency                                score = 0.7500
+
+  [9] category : software_license
+       preview  : ARTICLE 3. PERPETUAL AND IRREVOCABLE LICENSE
+Subject to full payment of all fees...
+       failures :
+         Latency                                score = 0.7500
+
+  [10] category : saas_agreement
+       preview  : SECTION 6. UNLIMITED ENTERPRISE LICENSE
+Subject to the terms herein, Vendor gran...
+       failures :
+         Latency                                score = 0.7500
+
+  [11] category : joint_venture
+       preview  : ARTICLE 2.1 JOINT IP OWNERSHIP
+Any intellectual property jointly conceived, crea...
+       failures :
+         ExpectedClauseType                     score = 0.6667
+         Latency                                score = 0.7500
+
+  [12] category : reseller_agreement
+       preview  : SECTION 9. NO-SOLICIT OF CUSTOMERS
+During the Term of this Agreement and for a p...
+       failures :
+         Latency                                score = 0.7500
+
+  [14] category : franchise_agreement
+       preview  : RECITALS AND PARTIES
+This Franchise Agreement (the "Agreement") is entered into ...
+       failures :
+         ExpectedClauseType                     score = 0.3333
+
+  [18] category : technology_licensing
+       preview  : SECTION A. LICENSE GRANT
+Licensor grants Licensee a non-exclusive, non-transfera...
+       failures :
+         ExpectedClauseType                     score = 0.3333
+
+  [20] category : services_agreement
+       preview  : PREAMBLE
+This Master Services Agreement (the "Agreement") is made as of April 5,...
+       failures :
+         ExpectedClauseType                     score = 0.3333
+         Latency                                score = 0.7500
+
+  [21] category : franchise_agreement
+       preview  : SECTION 1. EXCLUSIVITY
+Franchisor grants Franchisee the exclusive right to opera...
+       failures :
+         Latency                                score = 0.7500
+
+  [22] category : data_processing_agreement
+       preview  : SECTION 8. AUDIT RIGHTS
+Client shall have the right to audit Processor's data ha...
+       failures :
+         Latency                                score = 0.7500
+
+  [23] category : master_service_agreement
+       preview  : SECTION 12. ANTI-ASSIGNMENT
+Neither party may assign its rights or delegate its ...
+       failures :
+         Latency                                score = 0.7500
+
+  [24] category : partnership_agreement
+       preview  : CLAUSE 4. PROFIT DISTRIBUTION
+Net profits of the joint venture shall be distribu...
+       failures :
+         Latency                                score = 0.7500
+
+  [25] category : agency_agreement
+       preview  : SECTION 3. EXCLUSIVITY
+Principal grants Agent the exclusive right to solicit ord...
+       failures :
+         Latency                                score = 0.7500
+
+  [26] category : employment_contract
+       preview  : SECTION 8. NON-DISPARAGEMENT
+Employee agrees not to make negative, disparaging, ...
+       failures :
+         Latency                                score = 0.7500
+
+  [27] category : software_license
+       preview  : SECTION 4. LICENSE GRANT
+Licensor grants Licensee a non-exclusive, worldwide lic...
+       failures :
+         Latency                                score = 0.7500
+
+  [28] category : saas_agreement
+       preview  : SECTION 11. AUDIT RIGHTS
+Vendor grants Customer the right to audit Vendor's secu...
+       failures :
+         Latency                                score = 0.7500
+
+  [29] category : reseller_agreement
+       preview  : SECTION 6. MINIMUM PURCHASE COMMITMENT
+Reseller agrees to purchase not less than...
+       failures :
+         Latency                                score = 0.7500
+
+  [30] category : technology_transfer
+       preview  : ARTICLE 5. SOURCE CODE ESCROW
+Licensor shall deposit all source code, algorithms...
+       failures :
+         Latency                                score = 0.7500
+
+  [31] category : services_agreement
+       preview  : SECTION 14. LIQUIDATED DAMAGES
+In the event of Service Provider's failure to mee...
+       failures :
+         Latency                                score = 0.7500
+
+  [32] category : franchise_agreement
+       preview  : SECTION 18. RENEWAL TERM
+Franchisee shall have the option to renew this Franchis...
+       failures :
+         Latency                                score = 0.7500
+
+  [33] category : nda_services_agreement
+       preview  : SECTION 3. COVENANT NOT TO SUE
+Each party covenants not to bring or maintain any...
+       failures :
+         Latency                                score = 0.7500
+
+  [34] category : software_license
+       preview  : SECTION 5. LICENSE GRANT
+Subject to payment of the license fees set forth in Sch...
+       failures :
+         Latency                                score = 0.7500
+
+  [35] category : master_service_agreement
+       preview  : SECTION 9. THIRD PARTY BENEFICIARIES
+Client's parent company and subsidiaries ar...
+       failures :
+         Latency                                score = 0.7500
+
+  [36] category : research_collaboration
+       preview  : ARTICLE 6. JOINT IP OWNERSHIP
+Inventions and discoveries arising from activities...
+       failures :
+         ExpectedClauseType                     score = 0.6667
+         Latency                                score = 0.7500
+
+  [37] category : employment_contract
+       preview  : SECTION 12. NON-COMPETE
+Employee agrees that for three (3) years following termi...
+       failures :
+         Latency                                score = 0.7500
+
+  [38] category : franchise_agreement
+       preview  : SECTION 22. MOST FAVORED NATION
+Franchisor represents that the royalty rates and...
+       failures :
+         Latency                                score = 0.7500
+
+  [39] category : technology_transfer
+       preview  : SECTION 7. PERPETUAL LICENSE
+In consideration of the technology transfer fees in...
+       failures :
+         ExpectedClauseType                     score = 0.6667
+         Latency                                score = 0.7500
+
+  [40] category : services_agreement
+       preview  : SECTION 15. CHANGE OF CONTROL
+"Change of Control" includes any merger, consolida...
+       failures :
+         Latency                                score = 0.7500
+
+  [41] category : research_collaboration
+       preview  : SECTION 10. IP OWNERSHIP ASSIGNMENT
+All intellectual property created solely by ...
+       failures :
+         ExpectedClauseType                     score = 0.6667
+         Latency                                score = 0.7500
+
+  [42] category : enterprise_software
+       preview  : SECTION 4. UNLIMITED ENTERPRISE LICENSE
+Vendor grants Customer an unrestricted, ...
+       failures :
+         Latency                                score = 0.7500
+
+  [43] category : services_agreement
+       preview  : SECTION 18. POST-TERMINATION OBLIGATIONS
+Following any termination of this Agree...
+       failures :
+         Latency                                score = 0.7500
+
+  [44] category : distribution_agreement
+       preview  : SECTION 3. EXCLUSIVE DISTRIBUTION RIGHTS
+Supplier grants Distributor the exclusi...
+       failures :
+         Latency                                score = 0.7500
+
+  [45] category : franchise_agreement
+       preview  : SECTION 25. NON-COMPETE OBLIGATION
+Franchisee agrees that during the Term and fo...
+       failures :
+         Latency                                score = 0.7500
+
+  [46] category : data_processing_agreement
+       preview  : SECTION 12. UNCAPPED LIABILITY FOR DATA BREACHES
+Notwithstanding any limitation ...
+       failures :
+         Latency                                score = 0.7500
+
+  [47] category : saas_agreement
+       preview  : SECTION 6. PERPETUAL LICENSE FOR DERIVED INSIGHTS
+Upon termination of this Agree...
+       failures :
+         Latency                                score = 0.7500
+
+  [48] category : services_agreement
+       preview  : SECTION 19. THIRD-PARTY BENEFICIARIES
+The end-users who access Vendor's Platform...
+       failures :
+         Latency                                score = 0.7500
+
+  [49] category : consulting_agreement
+       preview  : SECTION 6. IP OWNERSHIP ASSIGNMENT
+Consultant irrevocably assigns to Client all ...
+       failures :
+         ExpectedClauseType                     score = 0.6667
+         Latency                                score = 0.7500
+
+========================================================================

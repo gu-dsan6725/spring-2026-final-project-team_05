@@ -72,7 +72,7 @@ def classification_node(state: ContractState) -> dict:
     """LangGraph node: classify all clauses from the ingestion agent."""
     classified = []
 
-    for clause in state["clauses"][:3]: # changed from state["clauses"] for now to conserve API credits
+    for clause in state["clauses"]:
         result = classify_clause(clause["text"])
         classified.append({
             **clause,

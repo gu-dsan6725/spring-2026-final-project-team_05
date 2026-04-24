@@ -288,51 +288,82 @@ def plot_failures_by_category(metrics: dict, threshold: float) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Chart 5: Overall system accuracy pie chart
+# Chart 5: Overall system accuracy pie chart (fail broken down by scorer)
 # ---------------------------------------------------------------------------
+
+# Distinct colours for each fail-type slice (colourblind-friendlier set).
+_FAIL_COLORS = [
+    "#E53935", "#FB8C00", "#8E24AA", "#1E88E5",
+    "#00ACC1", "#43A047", "#F4511E", "#6D4C41",
+    "#757575", "#3949AB",
+]
+
 
 def plot_overall_accuracy(metrics: dict, threshold: float) -> None:
     total_evals = pass_evals = 0
+    fail_by_scorer: dict[str, int] = {}
+
     for case in metrics.get("per_case", []):
-        for score in case.get("scores", {}).values():
+        for scorer, score in case.get("scores", {}).items():
             total_evals += 1
             if score >= threshold:
                 pass_evals += 1
+            else:
+                fail_by_scorer[scorer] = fail_by_scorer.get(scorer, 0) + 1
 
     if not total_evals:
         print("  no scorer evaluations found — skipping accuracy pie chart")
         return
 
-    fail_evals = total_evals - pass_evals
-    pass_pct = pass_evals / total_evals
-    fail_pct = fail_evals / total_evals
+    # Build slices: Pass first, then each fail type sorted by count descending.
+    fail_scorers = sorted(fail_by_scorer, key=lambda s: -fail_by_scorer[s])
+    sizes  = [pass_evals] + [fail_by_scorer[s] for s in fail_scorers]
+    labels = ["Pass"]    + [_fmt(s, _SCORER_LABELS) for s in fail_scorers]
+    colors = [PALETTE["pass"]] + [
+        _FAIL_COLORS[i % len(_FAIL_COLORS)] for i in range(len(fail_scorers))
+    ]
 
-    fig, ax = plt.subplots(figsize=(6, 6))
+    total_fails = total_evals - pass_evals
+    fig, ax = plt.subplots(figsize=(7, 6))
     fig.patch.set_facecolor(PALETTE["bg"])
     ax.set_facecolor(PALETTE["bg"])
 
+    # Explode the fail slices slightly so they read as a group.
+    explode = [0.0] + [0.04] * len(fail_scorers)
+
     wedges, texts, autotexts = ax.pie(
-        [pass_evals, fail_evals],
-        labels=["Pass", "Fail"],
-        colors=[PALETTE["pass"], PALETTE["fail"]],
-        autopct="%1.1f%%",
+        sizes,
+        labels=None,
+        colors=colors,
+        autopct=lambda pct: f"{pct:.1f}%" if pct >= 2.0 else "",
         startangle=90,
+        explode=explode,
         wedgeprops={"edgecolor": "white", "linewidth": 2},
-        textprops={"fontsize": 12},
+        textprops={"fontsize": 10},
     )
     for at in autotexts:
-        at.set_fontsize(13)
+        at.set_fontsize(10)
         at.set_fontweight("bold")
         at.set_color("white")
 
+    ax.legend(
+        wedges, labels,
+        title="Outcome",
+        loc="center left",
+        bbox_to_anchor=(1.02, 0.5),
+        fontsize=9,
+        title_fontsize=10,
+        frameon=False,
+    )
+
     ax.set_title(
-        f"Overall System Accuracy\n(threshold ≥ {threshold})",
-        fontsize=13, fontweight="bold", pad=16,
+        f"Overall System Accuracy\n(threshold ≥ {threshold}  |  fail breakdown by scorer)",
+        fontsize=12, fontweight="bold", pad=16,
     )
     ax.text(
-        0, -1.22,
-        f"{pass_evals} of {total_evals} scorer evaluations passed",
-        ha="center", fontsize=10, color="#555555",
+        0, -1.28,
+        f"{pass_evals} passed · {total_fails} failed  ({total_evals} total scorer evaluations)",
+        ha="center", fontsize=9, color="#555555",
         transform=ax.transData,
     )
 

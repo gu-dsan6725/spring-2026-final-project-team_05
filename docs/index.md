@@ -12,9 +12,9 @@
 | | |
 |---|---|
 | **Live Demo** | [Contract Analyzer on HuggingFace Spaces](https://huggingface.co/spaces/satomito/contract-clause-analyzer) |
-| **Project Paper** | PDF (coming soon) |
-| **Presentation Slides** | PDF (https://docs.google.com/presentation/d/1v4cF2uXXKlJJ-hEgZHI5m6ortz7PRnXH3DeBqA-iWPA/edit?usp=sharing) |
-| **Poster** | PDF (https://canva.link/jgubsofkqd3mil8) |
+| **Project Paper** | [PDF] (https://github.com/gu-dsan6725/spring-2026-final-project-team_05/blob/main/report.pdf) |
+| **Presentation Slides** | [Slides] (https://docs.google.com/presentation/d/1v4cF2uXXKlJJ-hEgZHI5m6ortz7PRnXH3DeBqA-iWPA/edit?usp=sharing) |
+| **Poster** | [PDF] (https://canva.link/jgubsofkqd3mil8) |
 | **GitHub Repository** | [gu-dsan6725/spring-2026-final-project-team_05](https://github.com/gu-dsan6725/spring-2026-final-project-team_05) |
 
 --- 

@@ -111,8 +111,8 @@ def build_and_save_graph(entities: list, relationships: list) -> str:
         for n in G.nodes
     ]
 
-    nx.draw_networkx_nodes(G, pos, node_color=node_colors, node_size=2000, alpha=0.9)
-    nx.draw_networkx_labels(G, pos, font_size=8, font_color="white", font_weight="bold")
+    nx.draw_networkx_nodes(G, pos, node_color=node_colors, node_size=4000, alpha=0.9)
+    nx.draw_networkx_labels(G, pos, font_size=8, font_color="#1a1a1a", font_weight="bold")
     nx.draw_networkx_edges(G, pos, arrows=True, arrowsize=20, edge_color="#888888", width=1.5)
     edge_labels = {(u, v): d["label"][:25] for u, v, d in G.edges(data=True)}
     nx.draw_networkx_edge_labels(G, pos, edge_labels, font_size=7, font_color="#333333")

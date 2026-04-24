@@ -51,7 +51,7 @@ Contracts are converted to plain-text format. Minimal preprocessing is applied: 
 
 ## 4.0 System Architecture
 
-![Figure 1: Agent architecture and data flow](img/agent_architecture_v3.jpg)
+![Figure 1: Agent architecture and data flow](img/agent_architecture_v3.png)
 *Figure 1: Agent architecture and data flow*
 
 ### 4.1 Overview

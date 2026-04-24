@@ -3,13 +3,13 @@
 FAILURE REPORT  (threshold < 1.0)
 ========================================================================
 Total cases  : 50
-Failed cases : 47  (94.0%)
+Failed cases : 50  (100.0%)
 
 ------------------------------------------------------------------------
 FAILURES PER SCORER
 ------------------------------------------------------------------------
-  Latency                                  44 case(s)
-  ExpectedClauseType                       9 case(s)
+  Latency                                  47 case(s)
+  ExpectedClauseType                       10 case(s)
 
 ------------------------------------------------------------------------
 FAILED CASES DETAIL
@@ -31,6 +31,10 @@ Employee agrees that for a period of five (5...
        preview  : ARTICLE I - IP OWNERSHIP ASSIGNMENT
 Consultant hereby irrevocably assigns to Cli...
        failures :
+         ExpectedClauseType                     score = 0.6667
+           expected    : Audit Rights, Ip Ownership Assignment, License Grant
+           found       : Audit Rights, IP Ownership Assignment, License Grant
+           missing     : Ip Ownership Assignment
          Latency                                score = 0.7500
 
   [3] category : distributor_agreement
@@ -45,6 +49,12 @@ Except for breaches of confidentiality obligations o...
        failures :
          Latency                                score = 0.7500
 
+  [5] category : services_agreement
+       preview  : SECTION 2.1 ANTI-ASSIGNMENT
+Neither party may assign, transfer, delegate, or sub...
+       failures :
+         Latency                                score = 0.7500
+
   [6] category : distributor_agreement
        preview  : ARTICLE IV - RENEWAL TERM
 Unless terminated as set forth herein, this Agreement ...
@@ -56,7 +66,7 @@ Unless terminated as set forth herein, this Agreement ...
        failures :
          ExpectedClauseType                     score = 0.0000
            expected    : Agreement Date, Effective Date, Parties
-           found       : Document Name, Parties, Agreement Date, Effective Date, Other
+           found       : Document Name, Other
            missing     : Agreement Date, Effective Date, Parties
 
   [8] category : nda_services_agreement
@@ -81,6 +91,10 @@ Subject to the terms herein, Vendor gran...
        preview  : ARTICLE 2.1 JOINT IP OWNERSHIP
 Any intellectual property jointly conceived, crea...
        failures :
+         ExpectedClauseType                     score = 0.6667
+           expected    : Joint Ip Ownership, Post-Termination Services, Third Party Beneficiary
+           found       : Joint IP Ownership, Post-Termination Services, Third Party Beneficiary
+           missing     : Joint Ip Ownership
          Latency                                score = 0.7500
 
   [12] category : reseller_agreement
@@ -99,15 +113,21 @@ This Agreement shall expire on December 31, 2026 (the ...
        preview  : RECITALS AND PARTIES
 This Franchise Agreement (the "Agreement") is entered into ...
        failures :
-         ExpectedClauseType                     score = 0.3333
+         ExpectedClauseType                     score = 0.6667
            expected    : Agreement Date, Effective Date, Parties
-           found       : Document Name, Parties, Agreement Date, Effective Date, Other
-           missing     : Agreement Date, Parties
+           found       : Effective Date, Other, Parties
+           missing     : Agreement Date
          Latency                                score = 0.7500
 
   [15] category : supply_agreement
        preview  : ARTICLE 1. EFFECTIVE DATE
 This Supply Agreement is effective as of February 15, ...
+       failures :
+         Latency                                score = 0.7500
+
+  [16] category : nda
+       preview  : SECTION 1. EFFECTIVE DATE
+This Non-Disclosure Agreement is effective as of Septe...
        failures :
          Latency                                score = 0.7500
 
@@ -126,13 +146,19 @@ Licensor grants Licensee a non-exclusive, non-transfera...
            found       : Governing Law
            missing     : License Grant, Warranty Duration
 
+  [19] category : commercial_lease
+       preview  : CLAUSE 1. EXPIRATION DATE
+The initial lease term shall expire on June 30, 2028 (...
+       failures :
+         Latency                                score = 0.7500
+
   [20] category : services_agreement
        preview  : PREAMBLE
 This Master Services Agreement (the "Agreement") is made as of April 5,...
        failures :
          ExpectedClauseType                     score = 0.3333
            expected    : Agreement Date, Effective Date, Parties
-           found       : Document Name, Parties, Agreement Date, Effective Date, Other
+           found       : Document Name, Effective Date, Other
            missing     : Agreement Date, Parties
 
   [21] category : franchise_agreement
@@ -261,10 +287,6 @@ In consideration of the technology transfer fees in...
        preview  : SECTION 15. CHANGE OF CONTROL
 "Change of Control" includes any merger, consolida...
        failures :
-         ExpectedClauseType                     score = 0.6667
-           expected    : Anti-Assignment, Change Of Control, Rofr/Rofo/Rofn
-           found       : Anti-Assignment, Change Of Control, ROFR/ROFO/ROFN
-           missing     : Rofr/Rofo/Rofn
          Latency                                score = 0.7500
 
   [41] category : research_collaboration

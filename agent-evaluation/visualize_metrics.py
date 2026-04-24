@@ -6,6 +6,8 @@ Produces:
   charts/category_heatmap.png       — heatmap of avg score by category × scorer
   charts/latency_distribution.png   — per-case latency score distribution
   charts/failures_by_category.png   — count of sub-threshold cases per category
+  charts/overall_accuracy.png       — pie chart of pass vs fail across all scorer evaluations
+  charts/missed_clause_types.png    — which expected clause types are missed most often
 
 Usage:
     python agent-evaluation/visualize_metrics.py
@@ -286,6 +288,102 @@ def plot_failures_by_category(metrics: dict, threshold: float) -> None:
 
 
 # ---------------------------------------------------------------------------
+# Chart 5: Overall system accuracy pie chart
+# ---------------------------------------------------------------------------
+
+def plot_overall_accuracy(metrics: dict, threshold: float) -> None:
+    total_evals = pass_evals = 0
+    for case in metrics.get("per_case", []):
+        for score in case.get("scores", {}).values():
+            total_evals += 1
+            if score >= threshold:
+                pass_evals += 1
+
+    if not total_evals:
+        print("  no scorer evaluations found — skipping accuracy pie chart")
+        return
+
+    fail_evals = total_evals - pass_evals
+    pass_pct = pass_evals / total_evals
+    fail_pct = fail_evals / total_evals
+
+    fig, ax = plt.subplots(figsize=(6, 6))
+    fig.patch.set_facecolor(PALETTE["bg"])
+    ax.set_facecolor(PALETTE["bg"])
+
+    wedges, texts, autotexts = ax.pie(
+        [pass_evals, fail_evals],
+        labels=["Pass", "Fail"],
+        colors=[PALETTE["pass"], PALETTE["fail"]],
+        autopct="%1.1f%%",
+        startangle=90,
+        wedgeprops={"edgecolor": "white", "linewidth": 2},
+        textprops={"fontsize": 12},
+    )
+    for at in autotexts:
+        at.set_fontsize(13)
+        at.set_fontweight("bold")
+        at.set_color("white")
+
+    ax.set_title(
+        f"Overall System Accuracy\n(threshold ≥ {threshold})",
+        fontsize=13, fontweight="bold", pad=16,
+    )
+    ax.text(
+        0, -1.22,
+        f"{pass_evals} of {total_evals} scorer evaluations passed",
+        ha="center", fontsize=10, color="#555555",
+        transform=ax.transData,
+    )
+
+    _save(fig, "overall_accuracy.png")
+
+
+# ---------------------------------------------------------------------------
+# Chart 7: Missed expected clause types
+# ---------------------------------------------------------------------------
+
+def plot_missed_clause_types(metrics: dict) -> None:
+    from collections import Counter
+    missed: Counter = Counter()
+
+    for case in metrics.get("per_case", []):
+        meta = case.get("scorer_metadata", {}).get("ExpectedClauseType", {})
+        if not meta:
+            continue
+        expected = set(meta.get("expected_types", []))
+        matched = set(meta.get("matched_types", []))
+        for t in expected - matched:
+            missed[t] += 1
+
+    if not missed:
+        print("  no ExpectedClauseType misses found — skipping missed clause types chart")
+        return
+
+    types = [t for t, _ in missed.most_common()]
+    counts = [missed[t] for t in types]
+
+    fig, ax = plt.subplots(figsize=(9, max(4, len(types) * 0.5)))
+    fig.patch.set_facecolor(PALETTE["bg"])
+    ax.set_facecolor(PALETTE["bg"])
+
+    ax.barh(types[::-1], counts[::-1], color=PALETTE["fail"], edgecolor="white", height=0.6)
+    for i, count in enumerate(counts[::-1]):
+        ax.text(count + 0.05, i, str(count), va="center", fontsize=10)
+
+    ax.set_xlabel("Times Missed", fontsize=11)
+    ax.set_title(
+        "Most Frequently Missed Expected Clause Types",
+        fontsize=13, fontweight="bold", pad=12,
+    )
+    ax.spines[["top", "right", "bottom"]].set_visible(False)
+    ax.set_xlim(0, max(counts) + 1.5)
+    ax.tick_params(axis="y", labelsize=9)
+
+    _save(fig, "missed_clause_types.png")
+
+
+# ---------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------
 
@@ -312,6 +410,8 @@ def main() -> None:
     plot_category_heatmap(metrics)
     plot_latency_distribution(metrics)
     plot_failures_by_category(metrics, args.threshold)
+    plot_overall_accuracy(metrics, args.threshold)
+    plot_missed_clause_types(metrics)
 
     print("\nDone.\n")
 

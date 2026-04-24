@@ -27,7 +27,7 @@
       "count": 50
     },
     "Latency": {
-      "average": 0.795,
+      "average": 0.765,
       "min": 0.75,
       "max": 1.0,
       "count": 50
@@ -48,7 +48,7 @@
       "average": 1.0,
       "min": 1.0,
       "max": 1.0,
-      "count": 44
+      "count": 45
     },
     "RiskScoreValidity": {
       "average": 1.0,
@@ -114,7 +114,7 @@
         "count": 1
       },
       "Latency": {
-        "average": 1.0,
+        "average": 0.75,
         "count": 1
       },
       "NoError": {
@@ -300,7 +300,7 @@
         "count": 4
       },
       "Latency": {
-        "average": 0.8125,
+        "average": 0.75,
         "count": 4
       },
       "NoError": {
@@ -372,7 +372,7 @@
         "count": 5
       },
       "ExpectedClauseType": {
-        "average": 0.8,
+        "average": 0.9333,
         "count": 5
       },
       "Latency": {
@@ -389,7 +389,7 @@
       },
       "RiskFactorsPresence": {
         "average": 1.0,
-        "count": 4
+        "count": 5
       },
       "RiskScoreValidity": {
         "average": 1.0,
@@ -452,7 +452,7 @@
         "count": 2
       },
       "Latency": {
-        "average": 0.875,
+        "average": 0.75,
         "count": 2
       },
       "NoError": {
@@ -490,7 +490,7 @@
         "count": 1
       },
       "Latency": {
-        "average": 1.0,
+        "average": 0.75,
         "count": 1
       },
       "NoError": {
@@ -524,7 +524,7 @@
         "count": 2
       },
       "Latency": {
-        "average": 0.875,
+        "average": 0.75,
         "count": 2
       },
       "NoError": {
@@ -596,7 +596,7 @@
         "count": 2
       },
       "ExpectedClauseType": {
-        "average": 0.8333,
+        "average": 0.5,
         "count": 2
       },
       "Latency": {
@@ -714,7 +714,7 @@
         "count": 7
       },
       "Latency": {
-        "average": 0.75,
+        "average": 0.7857,
         "count": 7
       },
       "NoError": {
@@ -752,7 +752,7 @@
         "count": 3
       },
       "Latency": {
-        "average": 0.8333,
+        "average": 0.75,
         "count": 3
       },
       "NoError": {
@@ -824,7 +824,7 @@
         "count": 2
       },
       "Latency": {
-        "average": 0.875,
+        "average": 0.75,
         "count": 2
       },
       "NoError": {
@@ -1183,7 +1183,7 @@
             "Parties"
           ],
           "found_types": [
-            "Document Name, Parties, Effective Date",
+            "Document Name",
             "Other"
           ],
           "matched_types": []
@@ -1406,8 +1406,9 @@
       "scores": {
         "ClauseStructureValidity": 1.0,
         "ClassificationValidity": 1.0,
-        "ExpectedClauseType": 0.3333,
+        "ExpectedClauseType": 0.6667,
         "RiskScoreValidity": 1.0,
+        "RiskFactorsPresence": 1.0,
         "BenchmarkSimilarityValidity": 1.0,
         "OutputStructureValidity": 1.0,
         "Latency": 0.75,
@@ -1421,12 +1422,13 @@
             "Parties"
           ],
           "found_types": [
-            "Document Name, Parties, Agreement Date",
             "Effective Date",
-            "Other"
+            "Other",
+            "Parties"
           ],
           "matched_types": [
-            "Effective Date"
+            "Effective Date",
+            "Parties"
           ]
         }
       },
@@ -1443,7 +1445,7 @@
         "RiskFactorsPresence": 1.0,
         "BenchmarkSimilarityValidity": 1.0,
         "OutputStructureValidity": 1.0,
-        "Latency": 1.0,
+        "Latency": 0.75,
         "NoError": 1.0
       },
       "scorer_metadata": {
@@ -1477,7 +1479,7 @@
         "RiskScoreValidity": 1.0,
         "BenchmarkSimilarityValidity": 1.0,
         "OutputStructureValidity": 1.0,
-        "Latency": 1.0,
+        "Latency": 0.75,
         "NoError": 1.0
       },
       "scorer_metadata": {
@@ -1511,7 +1513,7 @@
         "RiskScoreValidity": 1.0,
         "BenchmarkSimilarityValidity": 1.0,
         "OutputStructureValidity": 1.0,
-        "Latency": 1.0,
+        "Latency": 0.75,
         "NoError": 1.0
       },
       "scorer_metadata": {
@@ -1575,7 +1577,7 @@
         "RiskScoreValidity": 1.0,
         "BenchmarkSimilarityValidity": 1.0,
         "OutputStructureValidity": 1.0,
-        "Latency": 1.0,
+        "Latency": 0.75,
         "NoError": 1.0
       },
       "scorer_metadata": {
@@ -1610,7 +1612,7 @@
         "RiskFactorsPresence": 1.0,
         "BenchmarkSimilarityValidity": 1.0,
         "OutputStructureValidity": 1.0,
-        "Latency": 0.75,
+        "Latency": 1.0,
         "NoError": 1.0
       },
       "scorer_metadata": {
@@ -1621,7 +1623,7 @@
             "Parties"
           ],
           "found_types": [
-            "Document Name, Parties, Agreement Date",
+            "Document Name",
             "Effective Date",
             "Other"
           ],
@@ -1713,7 +1715,7 @@
         "RiskFactorsPresence": 1.0,
         "BenchmarkSimilarityValidity": 1.0,
         "OutputStructureValidity": 1.0,
-        "Latency": 1.0,
+        "Latency": 0.75,
         "NoError": 1.0
       },
       "scorer_metadata": {
@@ -1853,7 +1855,7 @@
         "RiskFactorsPresence": 1.0,
         "BenchmarkSimilarityValidity": 1.0,
         "OutputStructureValidity": 1.0,
-        "Latency": 1.0,
+        "Latency": 0.75,
         "NoError": 1.0
       },
       "scorer_metadata": {
@@ -2063,7 +2065,7 @@
         "RiskFactorsPresence": 1.0,
         "BenchmarkSimilarityValidity": 1.0,
         "OutputStructureValidity": 1.0,
-        "Latency": 1.0,
+        "Latency": 0.75,
         "NoError": 1.0
       },
       "scorer_metadata": {
@@ -2163,7 +2165,7 @@
       "scores": {
         "ClauseStructureValidity": 1.0,
         "ClassificationValidity": 1.0,
-        "ExpectedClauseType": 1.0,
+        "ExpectedClauseType": 0.6667,
         "RiskScoreValidity": 1.0,
         "RiskFactorsPresence": 1.0,
         "BenchmarkSimilarityValidity": 1.0,
@@ -2180,12 +2182,11 @@
           ],
           "found_types": [
             "Audit Rights",
-            "Joint Ip Ownership",
+            "Joint IP Ownership",
             "Revenue/Profit Sharing"
           ],
           "matched_types": [
             "Audit Rights",
-            "Joint Ip Ownership",
             "Revenue/Profit Sharing"
           ]
         }
@@ -2233,7 +2234,7 @@
       "scores": {
         "ClauseStructureValidity": 1.0,
         "ClassificationValidity": 1.0,
-        "ExpectedClauseType": 0.6667,
+        "ExpectedClauseType": 1.0,
         "RiskScoreValidity": 1.0,
         "RiskFactorsPresence": 1.0,
         "BenchmarkSimilarityValidity": 1.0,
@@ -2250,12 +2251,13 @@
           ],
           "found_types": [
             "Most Favored Nation",
-            "ROFR/ROFO/ROFN",
-            "Revenue/Profit Sharing"
+            "Revenue/Profit Sharing",
+            "Rofr/Rofo/Rofn"
           ],
           "matched_types": [
             "Most Favored Nation",
-            "Revenue/Profit Sharing"
+            "Revenue/Profit Sharing",
+            "Rofr/Rofo/Rofn"
           ]
         }
       },
@@ -2336,7 +2338,7 @@
       "scores": {
         "ClauseStructureValidity": 1.0,
         "ClassificationValidity": 1.0,
-        "ExpectedClauseType": 0.6667,
+        "ExpectedClauseType": 0.3333,
         "RiskScoreValidity": 1.0,
         "RiskFactorsPresence": 1.0,
         "BenchmarkSimilarityValidity": 1.0,
@@ -2352,12 +2354,11 @@
             "License Grant"
           ],
           "found_types": [
-            "Ip Ownership Assignment",
+            "IP Ownership Assignment",
             "Joint IP Ownership",
             "License Grant"
           ],
           "matched_types": [
-            "Ip Ownership Assignment",
             "License Grant"
           ]
         }
